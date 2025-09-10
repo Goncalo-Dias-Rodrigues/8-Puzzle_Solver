@@ -45,10 +45,9 @@ class Board implements Ilayout, Cloneable {
                 else {
                     stringBuilder.append(board[i][j]);
                 }
-
-                if(j == 2 && i != 2){
-                    stringBuilder.append("\n");
-                }
+            }
+            if(i < dim - 1){
+                stringBuilder.append("\r\n");
             }
         }
 
