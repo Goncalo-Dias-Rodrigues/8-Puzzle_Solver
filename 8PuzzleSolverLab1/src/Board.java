@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 class Board implements Ilayout, Cloneable {
@@ -25,6 +26,13 @@ class Board implements Ilayout, Cloneable {
         }
     }
 
+    public Board(Board other) {
+        board = new int[dim][dim];
+        for (int i = 0; i < dim; i++) {
+            System.arraycopy(other.board[i], 0, board[i], 0, dim);
+        }
+    }
+
     public String toString() {
 
         StringBuilder stringBuilder = new StringBuilder();
@@ -38,7 +46,7 @@ class Board implements Ilayout, Cloneable {
                     stringBuilder.append(board[i][j]);
                 }
 
-                if(j == 2){
+                if(j == 2 && i != 2){
                     stringBuilder.append("\n");
                 }
             }
@@ -52,12 +60,86 @@ class Board implements Ilayout, Cloneable {
     }
 
     public int hashCode() {
-
+        return 0;
     }
+
+    private ArrayList<Integer> locateSpace(){
+        ArrayList<Integer> result = new ArrayList<Integer>();
+        for (int i = 0; i < dim; i++) {
+            for (int j = 0; j < dim; j++) {
+                if (board[i][j] == 0){
+                    result.add(i);
+                    result.add(j);
+                    return result;
+                }
+            }
+        }
+        return result;
+    }
+
 
     @Override
     public List<Ilayout> children() {
-        return List.of();
+        ArrayList<Ilayout> children = new ArrayList<>();
+        ArrayList<Integer> spaceLocation = locateSpace();
+
+        Board temp;
+
+        try{
+            temp = (Board) this.clone();
+        }catch (CloneNotSupportedException e){
+            throw new AssertionError();
+        }
+
+        int numberToChange;
+
+        if (spaceLocation.get(0) + 1 < 3){
+            numberToChange = temp.board[spaceLocation.get(0) + 1][spaceLocation.get(1)];
+            temp.board[spaceLocation.get(0) + 1][spaceLocation.get(1)] = 0;
+            temp.board[spaceLocation.get(0)][spaceLocation.get(1)] = numberToChange;
+            children.add(temp);
+        }
+
+        try{
+            temp = (Board) this.clone();
+        }catch (CloneNotSupportedException e){
+            throw new AssertionError();
+        }
+
+        if (spaceLocation.get(0) - 1 >= 0){
+            numberToChange = temp.board[spaceLocation.get(0) - 1][spaceLocation.get(1)];
+            temp.board[spaceLocation.get(0) - 1][spaceLocation.get(1)] = 0;
+            temp.board[spaceLocation.get(0)][spaceLocation.get(1)] = numberToChange;
+            children.add(temp);
+        }
+
+        try{
+            temp = (Board) this.clone();
+        }catch (CloneNotSupportedException e){
+            throw new AssertionError();
+        }
+
+        if (spaceLocation.get(1) + 1 < 3){
+            numberToChange = temp.board[spaceLocation.get(0)][spaceLocation.get(1) + 1];
+            temp.board[spaceLocation.get(0)][spaceLocation.get(1) + 1] = 0;
+            temp.board[spaceLocation.get(0)][spaceLocation.get(1)] = numberToChange;
+            children.add(temp);
+        }
+
+        try{
+            temp = (Board) this.clone();
+        }catch (CloneNotSupportedException e){
+            throw new AssertionError();
+        }
+
+        if (spaceLocation.get(1) - 1 >= 0){
+            numberToChange = temp.board[spaceLocation.get(0)][spaceLocation.get(1) - 1];
+            temp.board[spaceLocation.get(0)][spaceLocation.get(1) - 1] = 0;
+            temp.board[spaceLocation.get(0)][spaceLocation.get(1)] = numberToChange;
+            children.add(temp);
+        }
+
+        return children;
     }
 
     @Override
