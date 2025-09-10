@@ -1,4 +1,3 @@
-import org.junit.*;
 import org.junit.jupiter.api.Test;
 
 import java.io.PrintWriter;
