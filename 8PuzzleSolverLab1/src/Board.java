@@ -1,5 +1,72 @@
 import java.util.List;
 
-public class Board implements Ilayout, Cloneable{
+class Board implements Ilayout, Cloneable {
 
+    private static final int dim = 3;
+    private int board[][];
+
+    public Board() {
+        board = new int[dim][dim];
+    }
+
+    public Board(String str) throws IllegalStateException {
+
+        if (str.length() != dim * dim){
+            throw new IllegalStateException("Invalid arg in Board constructor");
+        }
+
+        board = new int[dim][dim];
+        int si = 0;
+
+        for (int i = 0; i < dim; i++){
+            for (int j = 0; j < dim; j++){
+                board[i][j] = Character.getNumericValue(str.charAt(si++));
+            }
+        }
+    }
+
+    public String toString() {
+
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for (int i = 0; i < dim; i++){
+            for (int j = 0; j < dim; j++){
+                if (board[i][j] == 0){
+                    stringBuilder.append(" ");
+                }
+                else {
+                    stringBuilder.append(board[i][j]);
+                }
+
+                if(j == 2){
+                    stringBuilder.append("\n");
+                }
+            }
+        }
+
+        return stringBuilder.toString();
+    }
+
+    public boolean equals(Object o) {
+        return this.toString().equals(o.toString());
+    }
+
+    public int hashCode() {
+
+    }
+
+    @Override
+    public List<Ilayout> children() {
+        return List.of();
+    }
+
+    @Override
+    public boolean isGoal(Ilayout l) {
+        return equals(l);
+    }
+
+    @Override
+    public double getK() {
+        return 1;
+    }
 }
