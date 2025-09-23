@@ -16,5 +16,5 @@ public interface Ilayout {
     /**
      * @return the cost from the receiver to a successor
      */
-    double getK();
+    double getG();
 }

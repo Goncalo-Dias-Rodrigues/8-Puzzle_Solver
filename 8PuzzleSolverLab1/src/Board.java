@@ -154,7 +154,16 @@ class Board implements Ilayout, Cloneable {
     }
 
     @Override
-    public double getK() {
+    public double getG() {
         return 1;
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        Board cloned = new Board();
+        for (int i = 0; i < dim; i++) {
+            System.arraycopy(this.board[i], 0, cloned.board[i], 0, dim);
+        }
+        return cloned;
     }
 }
