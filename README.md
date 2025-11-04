@@ -10,7 +10,6 @@ This repository contains the instructional implementation for Lab Tutorial 1 of 
 - `BestFirst` class implementing best-first search with an inner `State` structure.
 - `Main` executable that reads initial and goal configurations (two lines) and prints the sequence of states, separated by a blank line, ending with the path length.
 - JUnit tests (e.g. `PuzzleUnitTests`) that validate constructor behaviour, `toString()` and basic properties.
-- Notes and instructions for submission to Mooshak (Contest IA 2025/26, Problem A).
 
 # Requirements
 - JDK 11 or later (JDK 17 recommended).
